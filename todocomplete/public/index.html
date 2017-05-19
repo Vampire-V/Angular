@@ -1,0 +1,137 @@
+<html ng-app="demo">
+
+<head>
+  <title>AngularJS</title>
+  <link rel="shortcut icon" type="image/x-icon" href="todocomplete/public/vendor/shortcut.ico">
+  <!-- Add JQuery + Bootstrap JS / CSS + AngularJS-->
+  <script src="./vendor/jquery/jquery.js"></script>
+  <script src="./vendor/bootstrap/js/bootstrap.js"></script>
+  <link rel="stylesheet" type="text/css" href="./vendor/bootstrap/css/bootstrap.css">
+  <script src="./vendor/angular/angular.js"></script>
+  <script src="./vendor/angular/angular-route.js"></script>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Our Script -->
+  <script src="./main.js"></script>
+
+  <style>
+    input.ng-invalid {
+      background-color: ;
+      border: 1px solid #f98419;
+    }
+  </style>
+</head>
+
+<body style="background-color:lavender;">
+  <!-- Our HTML -->
+  <div class="container" ng-controller="MainController">
+<h1>AnimeJPY</h1>
+    <!-- New Item row -->
+    <div class="form-group">
+      <div class="col-md-2"><img class="img-responsive img-circle center-block"
+        ng-src="./vendor/img/anime1.jpg"></div>
+
+      <form role="form" name="userForm" novalidate>
+        <div class="col-xs-4" style="background-color:lavender;">
+
+          <label for="newItemFname">ชื่อ<br>
+              <input type="text" class="form-control" placeholder="ชื่อ" ng-model="vm.newItemFname" data-toggle="tooltip" data-placement="bottom" title="กรุณาใส่ชื่อจริง" required></label>
+          <label for="newItemLname">สกุล<br>
+              <input type="text" class="form-control" placeholder="สกุล" ng-model="vm.newItemLname" data-toggle="tooltip" data-placement="bottom" title="กรุณาใส่สกุลจริง" required></label>
+          <br><label for="newItemEmail">Email<br>
+                  <input type="email" class="form-control" placeholder="Email" ng-model="vm.newItemEmail" data-toggle="tooltip" data-placement="bottom" title="examples@examples.com" required>
+              </label><br>
+
+          <label for="newItemday" ng-controller="SelectCtrl">วันที่เกิด
+              <select class="form-control" ng-model="vm.newItemday">
+                      <option value="">---วันที่เกิด---</option>
+                      <option ng-repeat="days in day.fname " value="{{days}}">{{days}}</option>
+                    </select></label>
+
+          <label for="newItemMonth" ng-controller="SelectCtrl">เดือนเกิด
+                    <select class="form-control" ng-model="vm.newItemMonth">
+                            <option value="">---เดือนเกิด---</option>
+                            <option ng-repeat="months in month.fname " value="{{months}}">{{months}}</option>
+                          </select></label>
+
+          <label for="newItemYear" ng-controller="SelectCtrl">ปีเกิด
+                          <select class="form-control" ng-model="vm.newItemYear">
+                                  <option value="">---ปีเกิด---</option>
+                                  <option ng-repeat="years in years.fname " value="{{years}}">{{years}}</option>
+                                </select></label>
+
+          <label for="newItemBlood" ng-controller="SelectCtrl">กรุ๊ปเลือด<br>
+              <select class="form-control" ng-model="vm.newItemBlood">
+                      <option value="">---กรุ๊ปเลือด---</option>
+                      <option ng-repeat="blood in blood.fname " value="{{blood}}">{{blood}}</option>
+                    </select></label>
+
+          <label for="newItemColer">สีที่ชอบ<br>
+                          <input type="radio" ng-model="vm.newItemColer" value="Red" >Red
+                          <input type="radio" ng-model="vm.newItemColer" value="Blue" >Blue
+                          <input type="radio" ng-model="vm.newItemColer" value="Pink" >Pink</label>
+        </div>
+
+        <div class="col-md-5" style="background-color:lavender;">
+          <label for="newItemAddress">ที่อยู่<br>
+                  <input type="text" class="form-control" placeholder="ที่อยู่" ng-model="vm.newItemAddress" data-toggle="tooltip" data-placement="bottom" title="111/2" required></label>
+          <label for="newLikeAnime">การ์ตูนที่ชอบ<br>
+                  <input type="text" class="form-control" placeholder="การ์ตูนที่ชอบ" ng-model="vm.newLikeAnime" data-toggle="tooltip" data-placement="bottom" title="Onepiece" required></label>
+          <label for="newLikeGame">เกมที่ชอบ:<br>
+                  <input type="text" class="form-control" placeholder="เกมที่ชอบ" ng-model="vm.newLikeGame" data-toggle="tooltip" data-placement="bottom" title="Dota2" required></label>
+          <label for="newItemAge">อายุ:<br>
+                  <input type="number" class="form-control" placeholder="อายุ" ng-model="vm.newItemAge" ng-pattern="/^[0-9]{1,7}$/" data-toggle="tooltip" data-placement="bottom" title="20" required></label>
+          <label for="newItemSex">เพศ:<br>
+                  <input type="text" class="form-control" placeholder="เพศ" ng-model="vm.newItemSex" data-toggle="tooltip" data-placement="bottom" title="male/female" required></label>
+          <label for="newIdcard">เลขบัตรประจำตัวประชาชน<br>
+                  <input type="number" class="form-control" placeholder="ID card" ng-model="vm.newIdcard" ng-pattern="/^[0-9]{0,13}$/" data-toggle="tooltip" data-placement="bottom" title="1234567891234" required></label>
+          <label for="newNumber">เบอร์โทร:<br>
+                  <input type="text" class="form-control" placeholder="เบอร์โทร" ng-model="vm.newNumber" data-toggle="tooltip" data-placement="bottom" title="0999999999" required></label>
+        </div>
+
+        <button type="submit" class="btn btn-success btn-lg btn-block" ng-click="vm.addItem()" ng-disabled="!vm.newItemFname">เพิ่มข้อมูล</button>
+      </form>
+    </div>
+
+
+    <!-- Existing items rows -->
+    <div class="col-xs-12" style="background-color:lavenderblush;">
+
+      <h1>AnimeJPY</h1>
+
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <td>ชื่อ</td>
+          <td>สกุล</td>
+          <td>วันเกิด</td>
+          <td>เดือนเกิด</td>
+          <td>ปีเกิด</td>
+          <td>อายุ</td>
+          <td>Email</td>
+          <td>การ์ตูนที่ชอบ</td>
+          <td>เกมที่ชอบ</td>
+          <td>เพศ</td>
+          <td>ลบ</td>
+        </tr>
+      </thead>
+<tr ng-repeat="item in vm.list track by item._id">
+        <td>{{item.newItemFname}}</td>
+        <td>{{item.newItemLname}}</td>
+        <td>{{item.newItemday}}</td>
+        <td>{{item.newItemMonth}}</td>
+        <td>{{item.newItemYear}}</td>
+        <td>{{item.newItemAge}}</td>
+        <td>{{item.newItemEmail}}</td>
+        <td>{{item.newLikeAnime}}</td>
+        <td>{{item.newLikeGame}}</td>
+        <td>{{item.newItemSex}}</td>
+        <td><button class="btn btn-danger btn-md" ng-click="vm.removeItem(item)">ลบ</</button></td>
+      </tr>
+
+    </table>
+    </div>
+  </div>
+</body>
+
+</html>
